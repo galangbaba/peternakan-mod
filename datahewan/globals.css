@@ -1,0 +1,29 @@
+/* globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-green: #00B359;
+    --sidebar-bg: #C1F2D1;
+    --text-dark: #333333;
+    --bg-light: #F9FAFB;
+    --white: #ffffff;
+    --border-color: #E5E7EB;
+    --mint-row: #E8F9EE;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

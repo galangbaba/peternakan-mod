@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModernFarm - Data Pakan</title>
+    <link rel="stylesheet" href="style3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="app-wrapper">
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fas fa-leaf"></i> Modern<span>Farm</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="menu-item">Dashboard</a>
+                <a href="datahewan.html" class="menu-item">Data Hewan</a>
+                <a href="datapakan.html" class="menu-item">Data Pakan</a>
+                <a href="laporan.html" class="menu-item">Laporan</a>
+            </nav>
+        </aside>
+
+        <main class="content-area">
+            <header class="main-header">
+                <div class="profile-section">
+                    <div class="profile-info">
+                        <small>User</small>
+                        <strong>Amin</strong>
+                    </div>
+                    <div class="profile-img"><i class="fas fa-user-circle"></i></div>
+                </div>
+            </header>
+
+            <div class="feed-grid">
+                <div class="report-card">
+                    <h3 class="card-head">🌾 Tingkat Persediaan Saat Ini</h3>
+                    <div class="stock-group">
+                        <div class="stock-row">
+                            <label>Jerami <span>1.400 kg / 2.000 kg</span></label>
+                            <div class="progress-bar">
+                                <div class="fill green" style="width: 70%;"></div>
+                            </div>
+                            <span class="stock-meta">70% remaining</span>
+                        </div>
+                        <div class="stock-row">
+                            <label>Grain Mix <span>980 kg / 1.500 kg</span></label>
+                            <div class="progress-bar">
+                                <div class="fill green-medium" style="width: 65%;"></div>
+                            </div>
+                            <span class="stock-meta">65% remaining</span>
+                        </div>
+                        <div class="stock-row">
+                            <label>Hijauan fermentasi <span>860 kg / 1.200 kg</span></label>
+                            <div class="progress-bar">
+                                <div class="fill green-teal" style="width: 72%;"></div>
+                            </div>
+                            <span class="stock-meta">72% remaining</span>
+                        </div>
+                        <div class="stock-row">
+                            <label>Berkonsentrasi <span>600 kg / 1.000 kg</span></label>
+                            <div class="progress-bar">
+                                <div class="fill green-light" style="width: 60%;"></div>
+                            </div>
+                            <span class="stock-meta">60% remaining</span>
+                        </div>
+                    </div>
+                    <div class="stock-footer">Total Available <span>3,840 kg</span></div>
+                </div>
+
+                <div class="report-card centered">
+                    <h3 class="card-head">📊 Distribusi Pakan</h3>
+                    <div class="donut-visual"></div>
+                    <div class="chart-legend">
+                        <span><i class="dot j"></i> jerami</span>
+                        <span><i class="dot g"></i> Grain Mix</span>
+                        <span><i class="dot s"></i> Silage</span>
+                    </div>
+                </div>
+
+                <div class="report-card">
+                    <h3 class="card-head">📅 Penggunaan & Pengisian Kembali Pakan Mingguan</h3>
+                    <div class="bar-chart">
+                        <div class="bar-item" style="height: 40%;"></div>
+                        <div class="bar-item" style="height: 45%;"></div>
+                        <div class="bar-item active" style="height: 85%;"></div>
+                        <div class="bar-item" style="height: 38%;"></div>
+                        <div class="bar-item" style="height: 42%;"></div>
+                        <div class="bar-item highlight" style="height: 55%;"></div>
+                        <div class="bar-item" style="height: 40%;"></div>
+                    </div>
+                    <div class="bar-labels">
+                        <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                    </div>
+                </div>
+
+                <div class="report-card">
+                    <h3 class="card-head">📈 Stock Level Trend (Last 7 Days)</h3>
+                    <div class="trend-graphic">
+                        <svg viewBox="0 0 100 40" class="line-svg">
+                            <path d="M0,25 Q25,35 50,15 T100,20" fill="none" stroke="#22c55e" stroke-width="2" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

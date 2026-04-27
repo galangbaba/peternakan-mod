@@ -1,0 +1,29 @@
+/* globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    /* Palet Warna Modern Farm */
+    --side-green: #98EECC;      /* Warna hijau sidebar utama */
+    --active-green: #22C55E;    /* Warna hijau saat menu aktif */
+    --bg-light: #E8F9F1;        /* Background area konten */
+    --text-dark: #2D3436;
+    --white: #ffffff;
+    --border-color: #E0E0E0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--white);
+    color: var(--text-dark);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

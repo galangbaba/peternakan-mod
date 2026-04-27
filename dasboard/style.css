@@ -1,0 +1,172 @@
+:root {
+    --side-green: #98EECC; /* Warna hijau sidebar sesuai gambar */
+    --active-green: #22C55E;
+    --bg-light: #E8F9F1;
+    --text-dark: #2D3436;
+}
+
+body, html {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: white;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 280px;
+    background-color: var(--side-green);
+    padding: 30px 20px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #166534;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.logo span { color: #22C55E; }
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.menu-item {
+    text-decoration: none;
+    color: var(--text-dark);
+    background: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.menu-item.active {
+    background-color: var(--active-green);
+    color: white;
+}
+
+.menu-item img {
+    width: 24px;
+    height: 24px;
+}
+
+/* MAIN CONTENT */
+.content {
+    flex: 1;
+    background-color: var(--bg-light);
+    overflow-y: auto;
+}
+
+.header {
+    background: var(--bg-light);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-text {
+    text-align: right;
+    line-height: 1.2;
+}
+
+.user-text span { display: block; font-size: 12px; color: #636e72; }
+
+.avatar img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #dfe6e9;
+}
+
+/* DASHBOARD GRID */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px 40px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px solid #E0E0E0;
+}
+
+.card h3 {
+    font-size: 15px;
+    margin-top: 0;
+    color: #2d3436;
+    margin-bottom: 20px;
+}
+
+/* STOK STYLING */
+.stok-row {
+    margin-bottom: 15px;
+}
+
+.stok-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.progress-bg {
+    background: #F1F1F1;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+}
+
+.remaining {
+    text-align: right;
+    font-size: 11px;
+    color: #b2bec3;
+    margin-top: 3px;
+}
+
+.total-available {
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    color: #00B894;
+}
+
+.chart-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
