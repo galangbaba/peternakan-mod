@@ -1,7 +1,14 @@
 <?php
 // 1. KONEKSI & LOGIKA PROSES
 session_start();
-include 'config.php'; 
+include 'config.php';
+
+//agar jika tidak login dulu tidak bisa masuk ke form ini
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: ../login/login.php");
+    exit;
+}
 
 $status_msg = "";
 
@@ -87,9 +94,9 @@ if ($result) {
             <img src="asset/daun.jpg" alt="Logo"> Modern<span>Farm</span>
         </div>
         <nav class="menu">
-            <a href="/peternakan/dasboard/Dashboard.php" class="menu-item"><img src="asset/iconehome.jpg" alt=""> Dashboard</a>
-            <a href="/peternakan/datahewan/datahewan.php" class="menu-item"><img src="asset/datahewan.jpg" alt=""> Data Hewan</a>
-            <a href="/peternakan/jenislimbah/limbahternak.php" class="menu-item active"><img src="asset/datapakan.jpg" alt=""> Limbah</a>
+            <a href="/peternakan/peternakan/dasboard/index.php" class="menu-item"><img src="asset/iconehome.jpg" alt=""> Dashboard</a>
+            <a href="/peternakan/peternakan/datahewan/index.php" class="menu-item"><img src="asset/datahewan.jpg" alt=""> Data Hewan</a>
+            <a href="/peternakan/peternakan/jenislimbah/index.php" class="menu-item active"><img src="asset/datapakan.jpg" alt=""> Limbah</a>
             <a href="laporan.php" class="menu-item"><img src="asset/laporan.jpg" alt=""> Laporan</a>
             <a href="pengaturan.php" class="menu-item"><img src="asset/pengaturan.php" alt=""> Pengaturan</a>
             <a href="logout.php" class="menu-item"><img src="asset/logout.jpg" alt=""> Logout</a>

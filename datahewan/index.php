@@ -1,6 +1,13 @@
 <?php
 include 'koneksi.php';
 
+//jika tidak login maka tidak bisa masuk ke form ini
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: ../login/login.php");
+    exit;
+}
+
 // 1. Pastikan variabel didefinisikan sebagai array kosong agar tidak error jika DB kosong
 $data_hewan = [];
 
@@ -64,9 +71,9 @@ try {
                 <img src="asset/daun.jpg" alt="Logo"> Modern<span>Farm</span>
             </div>
             <nav class="menu">
-                <a href="/peternakan/dasboard/Dashboard.php" class="menu-item"><img src="asset/iconehome.jpg" alt=""> Dashboard</a>
-                <a href="/peternakan/datahewan/datahewan.php" class="menu-item active"><img src="asset/datahewan.jpg" alt=""> Data Hewan</a>
-                <a href="/peternakan/jenislimbah/limbahternak.php" class="menu-item"><img src="asset/datapakan.jpg" alt=""> Limbah</a>
+                <a href="/peternakan/peternakan/dasboard/index.php" class="menu-item"><img src="asset/iconehome.jpg" alt=""> Dashboard</a>
+                <a href="/peternakan/peternakan/datahewan/index.php" class="menu-item active"><img src="asset/datahewan.jpg" alt=""> Data Hewan</a>
+                <a href="/peternakan/peternakan/jenislimbah/index.php" class="menu-item"><img src="asset/datapakan.jpg" alt=""> Limbah</a>
                 <a href="laporan.php" class="menu-item"><img src="asset/laporan.jpg" alt=""> Laporan</a>
                 <a href="pengaturan.php" class="menu-item"><img src="asset/pengaturan.jpg" alt=""> Pengaturan</a>
                 <a href="logout.php" class="menu-item"><img src="asset/logout.jpg" alt=""> Logout</a>
@@ -91,7 +98,7 @@ try {
                     <div class="search-wrapper">
                         <input type="text" placeholder="Search by ID, type, or status...">
                     </div>
-                    <button class="btn-add" onclick="bukaModal()"><i class="fas fa-plus"></i>TAMBAH</button>
+                    <a href="tambah.php" class="btn-add" style="text-decoration: none;"><i class="fas fa-plus"></i> TAMBAH</a>
                 </div>
 
                 <div class="table-card">
@@ -117,7 +124,11 @@ try {
                                     <td>
                                         <div class="action-btns">
                                             <a href="edit.php?id=<?php echo $hwn['id_hewan']; ?>" class="btn-edit" title="Edit"><i class="fas fa-edit"></i></a>
-                                            <a href="datahewan.php?hapus=<?php echo $hwn['id_hewan']; ?>" class="btn-delete" title="Hapus" onclick="return confirm('Yakin hapus?')"><i class="fas fa-trash"></i></a>
+                                            <a href="hapus.php?id=<?php echo $hwn['id_hewan']; ?>" 
+                                            class="btn-delete" 
+                                            onclick="return confirm('Yakin hapus data ini?')">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
@@ -128,39 +139,5 @@ try {
             </section>
         </main>
     </div>
-
-    <div id="modalTambah" class="modal">
-        <div class="modal-content">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h2>Tambah Data</h2>
-                <span style="cursor:pointer; font-size: 24px;" onclick="tutupModal()">&times;</span>
-            </div>
-            <form action="" method="POST">
-                <div class="form-group"><label>ID Hewan</label><input type="text" name="id" required></div>
-                <div class="form-group">
-                    <label>Jenis</label>
-                    <select name="jenis">
-                        <option value="sapi">Sapi</option>
-                        <option value="kambing">Kambing</option>
-                    </select>
-                </div>
-                <div class="form-group"><label>Usia</label><input type="text" name="usia" required></div>
-                <div class="form-group"><label>Berat Badan</label><input type="text" name="bb" required></div>
-                <div class="form-group">
-                    <label>Status</label>
-                    <select name="status">
-                        <option value="Healthy">Healthy</option>
-                        <option value="Sick">Sick</option>
-                    </select>
-                </div>
-                <button type="submit" name="submit_tambah" class="btn-save">Simpan</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        function bukaModal() { document.getElementById("modalTambah").style.display = "block"; }
-        function tutupModal() { document.getElementById("modalTambah").style.display = "none"; }
-    </script>
 </body>
 </html>
