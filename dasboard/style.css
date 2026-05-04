@@ -1,5 +1,5 @@
 :root {
-    --side-green: #98EECC; /* Warna hijau sidebar sesuai gambar */
+    --side-green: #171f1c; /* Warna hijau sidebar sesuai gambar */
     --active-green: #22C55E;
     --bg-light: #E8F9F1;
     --text-dark: #2D3436;
@@ -44,7 +44,7 @@ body, html {
 .menu-item {
     text-decoration: none;
     color: var(--text-dark);
-    background: white;
+    background: rgb(11, 10, 10);
     padding: 12px 20px;
     border-radius: 10px;
     display: flex;
