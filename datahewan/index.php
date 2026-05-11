@@ -1,17 +1,14 @@
 <?php
 include 'koneksi.php';
 
-//jika tidak login maka tidak bisa masuk ke form ini
 session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: ../login/index.php");
     exit;
 }
 
-// 1. Pastikan variabel didefinisikan sebagai array kosong agar tidak error jika DB kosong
 $data_hewan = [];
 
-// 2. LOGIKA TAMBAH DATA (Simpan ke Database)
 if (isset($_POST['submit_tambah'])) {
     try {
         $sql = "INSERT INTO tb_hewan (id_hewan, jenis_hewan, usia, berat_badan, status_kesehatan) 
@@ -31,7 +28,6 @@ if (isset($_POST['submit_tambah'])) {
     }
 }
 
-// 3. LOGIKA HAPUS DATA
 if (isset($_GET['hapus'])) {
     $sql = "DELETE FROM tb_hewan WHERE id_hewan = :id";
     $stmt = $conn->prepare($sql);
@@ -40,7 +36,6 @@ if (isset($_GET['hapus'])) {
     exit();
 }
 
-// 4. AMBIL DATA DARI DATABASE (Mengisi variabel $data_hewan)
 try {
     $query = "SELECT * FROM tb_hewan ORDER BY id_hewan ASC";
     $stmt = $conn->prepare($query);

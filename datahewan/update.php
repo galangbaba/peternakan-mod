@@ -18,32 +18,33 @@ $stmt->execute([':id' => $id]);
 $hewan = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$hewan) {
-    echo "<script>alert('Data tidak ditemukan!:'); window.Location='index.php';</script>";
+    echo "<script>alert('Data tidak ditemukan!'); window.location='index.php';</script>";
     exit;
 }
 
 if (isset($_POST['submit_edit'])) {
     try {
-        $sql = "UPDATE tb_hewan SET
-        jenis_hewan = :jenis,
-        usia = :usia,
-        berat_badan = :bb,
-        status_kesehatan = :status
-        WHERE id_hewan = :id";
-
+        $sql = "UPDATE tb_hewan SET 
+                jenis_hewan     = :jenis, 
+                usia           = :usia, 
+                berat_badan     = :bb, 
+                status_kesehatan = :status 
+                WHERE id_hewan  = :id";
+        
         $stmt = $conn->prepare($sql);
         $stmt->execute([
-            ':jenis' => $_POST['jenis'],
-            ':usia' => $_POST['usia'],
-            ':bb' => $_POST['bb'],
+            ':jenis'  => $_POST['jenis'],
+            ':usia'   => $_POST['usia'],
+            ':bb'     => $_POST['bb'],
             ':status' => $_POST['status'],
-            ':id' => $id
+            ':id'     => $id
         ]);
 
-        echo "<script>alert('Data berhasil diperbarui!'); window.Location='index.php';</script>";
-        exit();
+        header("Location: index.php?pesan=berhasil_edit");
+        exit(); 
+
     } catch(PDOException $e) {
-        echo "<script>alert('Gagal update: ". $e->getMessage() ."');</script>";
+        echo "<script>alert('Gagal update: " . $e->getMessage() . "');</script>";
     }
 }
 ?>

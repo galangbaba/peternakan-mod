@@ -1,9 +1,7 @@
 <?php
-// 1. KONEKSI & LOGIKA PROSES
 session_start();
 include 'config.php';
 
-//agar jika tidak login dulu tidak bisa masuk ke form ini
 if (!isset($_SESSION['user'])) {
     header("Location: ../login/index.php");
     exit;
@@ -11,7 +9,6 @@ if (!isset($_SESSION['user'])) {
 
 $status_msg = "";
 
-// --- PROSES SIMPAN DATA ---
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_sumber'])) {
     $nama_kandang = mysqli_real_escape_string($conn, $_POST['nama_kandang']);
     $jenis_ternak = mysqli_real_escape_string($conn, $_POST['jenis_ternak']);
@@ -27,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_sumber'])) {
     }
 }
 
-// --- LOGIKA HAPUS DATA ---
 if (isset($_GET['hapus'])) {
     $id = mysqli_real_escape_string($conn, $_GET['hapus']);
     mysqli_query($conn, "DELETE FROM sumber_ternak WHERE id = '$id'");
@@ -35,7 +31,6 @@ if (isset($_GET['hapus'])) {
     exit();
 }
 
-// --- AMBIL DATA UNTUK TABEL ---
 $result = mysqli_query($conn, "SELECT * FROM sumber_ternak ORDER BY id DESC");
 $data_limbah = [];
 if ($result) {
@@ -55,7 +50,6 @@ if ($result) {
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Table Styles */
         .table-container {
             margin-top: 30px;
             background: #fff;
@@ -121,10 +115,10 @@ if ($result) {
                 <div class="search-wrapper">
                     <input type="text" placeholder="Search by ID, type, or status...">
                </div>
-                <button class="btn-add" onclick="bukaModal()"><i class="fas fa-plus"></i> TAMBAH</button>
+               <a href="create.php" class="btn-add" style="text-decoration: none;"><i class="fas fa-plus"></i> TAMBAH</a>
             </div>
 
-                        <div class="table-container">
+            <div class="table-container">
                 <h3>Daftar Sumber Ternak</h3>
                 <table>
                     <thead>
@@ -138,10 +132,8 @@ if ($result) {
                     </thead>
                     <tbody>
                         <?php 
-                        // Pastikan data ada dan merupakan array sebelum dilooping
                         if (!empty($data_limbah) && is_array($data_limbah)): 
-                            // Opsional: Jika data benar-benar duplikat dari database, 
-                            // Anda bisa memfilternya di sini menggunakan array_unique jika perlu.
+
                             foreach($data_limbah as $index => $limter): 
                         ?>
                             <tr class="<?= ($index % 2 != 0) ? 'bg-mint': ''; ?>">
@@ -152,12 +144,10 @@ if ($result) {
                                 <td>
                                     <a href="edit.php?id=<?= $limter['id']; ?>" style="color: orange; margin-right: 15px;">
                                         <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="/peternakan/peternakan/jenislimbah/delete.php?id=<?= $limter['id']; ?>" 
-                                    style="color: #e74c3c;" 
-                                    onclick="return confirm('Hapus data ini?')">
+                                        <a href="hapus.php?id=<?php echo $hwn['id_hewan']; ?>" 
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                         <i class="fas fa-trash"></i>
-                                    </a>
+                                        </a>
                                 </td>
                             </tr>
                         <?php 
@@ -174,45 +164,6 @@ if ($result) {
         </section>
     </main>
 </div>
-
-<div id="modalTambah" class="modal">
-    <div class="modal-content">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <h2 style="margin: 0;">Tambah Ternak</h2>
-            <span style="cursor:pointer; font-size: 24px;" onclick="tutupModal()">&times;</span>
-        </div>
-        <form action="" method="POST">
-            <div class="form-group">
-                <label>Nama Kandang / ID</label>
-                <input type="text" name="nama_kandang" placeholder="Contoh: Kandang A1" required>
-            </div>
-            <div class="form-group">
-                <label>Jenis Ternak</label>
-                <select name="jenis_ternak" required>
-                    <option value="Sapi">Sapi</option>
-                    <option value="Kambing">Kambing</option>
-                    <option value="Domba">Domba</option>
-                    <option value="Unggas">Unggas</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Populasi (Ekor)</label>
-                <input type="number" name="populasi" placeholder="0" required min="1">
-            </div>
-            <button type="submit" name="submit_sumber" class="btn-save">SIMPAN DATA</button>
-        </form>
-    </div>
-</div>
-
-<script>
-    function bukaModal() { document.getElementById("modalTambah").style.display = "block"; }
-    function tutupModal() { document.getElementById("modalTambah").style.display = "none"; }
-    
-    window.onclick = function(event) {
-        let modal = document.getElementById("modalTambah");
-        if (event.target == modal) modal.style.display = "none";
-    }
-</script>
 
 </body>
 </html>

@@ -1,33 +1,28 @@
 <?php
-include 'koneksi.php'; // Pastikan path ke koneksi benar
+include 'config.php';
 session_start();
 
-// Proteksi login (Opsional tapi disarankan)
+// Proteksi Session
 if (!isset($_SESSION['user'])) {
     header("Location: ../login/index.php");
     exit;
 }
 
+// Logika Tambah Data
 if (isset($_POST['submit_tambah'])) {
     try {
-        // Query disesuaikan dengan input form (nama_kandang, jenis_ternak, usia, bb, status)
-        // Jika Anda ingin menyimpan ke tb_hewan, pastikan kolom di DB sesuai
-        $sql = "INSERT INTO tb_hewan (jenis_hewan, usia, berat_badan, status_kesehatan) 
-                VALUES (:jenis, :usia, :bb, :status)";
-        
+        $sql = "INSERT INTO tb_sumber_ternak (nama_kandang, jenis_ternak, populasi) 
+                VALUES (:nama, :jenis, :populasi)";
         $stmt = $conn->prepare($sql);
         $stmt->execute([
-            ':jenis'  => $_POST['jenis_ternak'], // Mengambil dari name="jenis_ternak"
-            ':usia'   => $_POST['usia'],         // Mengambil dari name="usia"
-            ':bb'     => $_POST['bb'],           // Mengambil dari name="bb"
-            ':status' => $_POST['status']        // Mengambil dari name="status"
+            ':nama'     => $_POST['nama_kandang'],
+            ':jenis'    => $_POST['jenis_ternak'],
+            ':populasi' => $_POST['populasi']
         ]);
-
-        // Mengalihkan ke datahewan/index.php
-        header("Location: ../datahewan/index.php?pesan=tambah_sukses");
+        header("Location: index.php?status=tambah_sukses");
         exit();
     } catch(PDOException $e) {
-        $error = "Gagal menambah data: " . $e->getMessage();
+        $error = $e->getMessage();
     }
 }
 ?>
@@ -37,15 +32,15 @@ if (isset($_POST['submit_tambah'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ModernFarm - Tambah Data Hewan</title>
+    <title>ModernFarm - Tambah Sumber Ternak</title>
     
-    <!-- Path CSS disesuaikan agar tetap terbaca jika file ini ada di folder lain -->
     <link rel="stylesheet" href="../datahewan/globals.css">
     <link rel="stylesheet" href="../datahewan/style.css">
     <link rel="stylesheet" href="../datahewan/style_datahewan.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* Tambahan style lokal untuk merapikan form */
         .form-group { margin-bottom: 15px; text-align: left; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #444; }
         .form-group input, .form-group select { 
@@ -70,12 +65,12 @@ if (isset($_POST['submit_tambah'])) {
         <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="logo">
-                <img src="../datahewan/asset/daun.jpg" alt="Logo"> Modern<span>Farm</span>
+                <img src="asset/daun.jpg" alt="Logo"> Modern<span>Farm</span>
             </div>
             <nav class="menu">
                 <a href="/peternakan/peternakan/dasboard/index.php" class="menu-item"><img src="asset/iconehome.jpg" alt=""> Dashboard</a>
-                <a href="/peternakan/peternakan/datahewan/index.php" class="menu-item active"><img src="asset/datahewan.jpg" alt=""> Data Hewan</a>
-                <a href="/peternakan/peternakan/jenislimbah/index.php" class="menu-item"><img src="asset/datapakan.jpg" alt=""> Limbah</a>
+                <a href="/peternakan/peternakan/datahewan/index.php" class="menu-item"><img src="asset/datahewan.jpg" alt=""> Data Hewan</a>
+                <a href="/peternakan/peternakan/jenislimbah/index.php" class="menu-item active"><img src="asset/datapakan.jpg" alt=""> Limbah</a>
                 <a href="laporan.php" class="menu-item"><img src="asset/laporan.jpg" alt=""> Laporan</a>
                 <a href="pengaturan.php" class="menu-item"><img src="asset/pengaturan.jpg" alt=""> Pengaturan</a>
                 <a href="logout.php" class="menu-item"><img src="asset/logout.jpg" alt=""> Logout</a>
@@ -83,6 +78,7 @@ if (isset($_POST['submit_tambah'])) {
         </aside>
 
         <main class="content">
+            <!-- HEADER -->
             <header class="header">
                 <div class="user-info" style="display: flex; align-items: center; gap: 12px;">
                     <div class="user-text" style="text-align: right;">
@@ -90,58 +86,45 @@ if (isset($_POST['submit_tambah'])) {
                         <strong>Amin</strong>
                     </div>
                     <div class="avatar">
-                        <img src="../datahewan/asset/profil.jpg" alt="Profile" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;">
+                        <img src="asset/profil.jpg" alt="Profile" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;">
                     </div>
                 </div>
             </header>
 
+            <!-- FORM SECTION -->
             <div style="display: flex; justify-content: center; padding-top: 40px;">
-                <div class="table-card" style="width: 100%; max-width: 500px; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                    <h2 style="margin-bottom: 10px; color: #333;">Tambah Data Hewan</h2>
-                    <p style="color: #888; font-size: 0.9rem; margin-bottom: 20px;">Masukkan data ternak baru di bawah ini.</p>
-                    <hr style="border: 0.5px solid #f0f0f0; margin-bottom: 20px;">
+                <div class="table-card" style="width: 100%; max-width: 500px; padding: 30px; background: white; border-radius: 12px;">
+                    <h2 style="margin-bottom: 10px; color: #333;">Tambah Sumber Ternak</h2>
+                    <p style="color: #888; font-size: 0.9rem; margin-bottom: 20px;">Masukkan data sumber ternak baru di bawah ini.</p>
+                    <hr style="border: 0.5px solid #eee;">
 
                     <?php if(isset($error)): ?>
-                        <div style="background: #FEE2E2; color: #B91C1C; padding: 10px; border-radius: 8px; margin-bottom: 15px; font-size: 0.85rem;">
-                            <i class="fas fa-exclamation-circle"></i> <?= $error ?>
-                        </div>
+                        <div style="color: red; margin-bottom: 15px;">Error: <?= $error ?></div>
                     <?php endif; ?>
 
-                    <form action="" method="POST">
-                        <!-- ID Hewan biasanya Auto Increment, jika manual tambahkan inputnya di sini -->
-                        
+                    <form action="" method="POST" style="margin-top: 20px;">
+                        <div class="form-group">
+                            <label>Nama Kandang</label>
+                            <input type="text" name="nama_kandang" required placeholder="Contoh: Kandang Utama">
+                        </div>
                         <div class="form-group">
                             <label>Jenis Ternak</label>
-                            <select name="jenis_ternak" required>
+                            <select name="jenis_ternak">
                                 <option value="Sapi">Sapi</option>
                                 <option value="Kambing">Kambing</option>
+                                <option value="Ayam">Ayam</option>
                             </select>
                         </div>
-
                         <div class="form-group">
-                            <label>Usia</label>
-                            <input type="text" name="usia" required placeholder="Contoh: 2 Tahun">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Berat Badan (kg)</label>
-                            <input type="number" step="0.01" name="bb" required placeholder="0.00">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Status Kesehatan</label>
-                            <select name="status" required>
-                                <option value="Sehat">Sehat</option>
-                                <option value="Sakit">Sakit</option>
-                                <option value="Karantina">Karantina</option>
-                            </select>
+                            <label>Populasi (Ekor)</label>
+                            <input type="number" name="populasi" required placeholder="0">
                         </div>
                         
                         <div style="margin-top: 30px; display: flex; gap: 10px;">
                             <button type="submit" name="submit_tambah" class="btn-save">
                                 <i class="fas fa-save"></i> Simpan
                             </button>
-                            <a href="../datahewan/index.php" class="btn-cancel">
+                            <a href="index.php" class="btn-cancel">
                                 <i class="fas fa-times"></i> Batal
                             </a>
                         </div>
