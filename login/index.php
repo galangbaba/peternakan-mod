@@ -21,7 +21,7 @@ if (isset($_POST['login'])) {
             $_SESSION['status'] = "login";
             
             // Arahkan ke Dashboard (Pastikan filenya .php agar session terbaca)
-            header("Location: ../dasboard/Dashboard.php"); 
+            header("Location: ../dasboard/index.php"); 
             exit;
         } else {
             echo "<script>alert('Password salah!'); window.location='login.php';</script>";

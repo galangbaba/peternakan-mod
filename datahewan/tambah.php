@@ -3,7 +3,7 @@ include 'koneksi.php';
 session_start();
 
 if (!isset($_SESSION['user'])) {
-    header("Location: ../login/login.php");
+    header("Location: ../login/index.php");
     exit;
 }
 
@@ -19,7 +19,7 @@ if (isset($_POST['submit_tambah'])) {
             ':bb'     => $_POST['bb'],
             ':status' => $_POST['status']
         ]);
-        header("Location: datahewan.php?status=tambah_sukses");
+        header("Location: /peternakan/peternakan/datahewan/index.php?status=tambah_sukses");
         exit();
     } catch(PDOException $e) {
         $error = $e->getMessage();
@@ -102,7 +102,7 @@ if (isset($_POST['submit_tambah'])) {
                 </div>
                 <div style="margin-top: 20px; display: flex; gap: 10px;">
                     <button type="submit" name="submit_tambah" class="btn-save">Simpan</button>
-                    <a href="datahewan.php" class="btn-delete" style="text-decoration: none; text-align: center; line-height: 2.5;">Batal</a>
+                    <a href="/peternakan/peternakan/datahewan/index.php" class="btn-delete" style="text-decoration: none; text-align: center; line-height: 2.5;">Batal</a>
                 </div>
             </form>
         </div>

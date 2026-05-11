@@ -3,7 +3,7 @@
 //jika tidak login maka tidak akan bisa masuk ke form ini
 session_start();
 if (!isset($_SESSION['user'])) {
-    header("Location: ../login/login.php");
+    header("Location: ../login/index.php");
     exit;
 }
 // Data dummy pakan

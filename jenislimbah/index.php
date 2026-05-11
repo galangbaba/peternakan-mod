@@ -4,9 +4,8 @@ session_start();
 include 'config.php';
 
 //agar jika tidak login dulu tidak bisa masuk ke form ini
-session_start();
 if (!isset($_SESSION['user'])) {
-    header("Location: ../login/login.php");
+    header("Location: ../login/index.php");
     exit;
 }
 
@@ -154,7 +153,9 @@ if ($result) {
                                     <a href="edit.php?id=<?= $limter['id']; ?>" style="color: orange; margin-right: 15px;">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <a href="?hapus=<?= $limter['id']; ?>" style="color: #e74c3c;" onclick="return confirm('Hapus data ini?')">
+                                    <a href="/peternakan/peternakan/jenislimbah/delete.php?id=<?= $limter['id']; ?>" 
+                                    style="color: #e74c3c;" 
+                                    onclick="return confirm('Hapus data ini?')">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>

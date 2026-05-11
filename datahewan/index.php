@@ -4,7 +4,7 @@ include 'koneksi.php';
 //jika tidak login maka tidak bisa masuk ke form ini
 session_start();
 if (!isset($_SESSION['user'])) {
-    header("Location: ../login/login.php");
+    header("Location: ../login/index.php");
     exit;
 }
 
@@ -123,8 +123,8 @@ try {
                                     <td><span class="status-pill" style="color:#22C55E; font-weight:bold;">• <?php echo htmlspecialchars($hwn['status_kesehatan']); ?></span></td>
                                     <td>
                                         <div class="action-btns">
-                                            <a href="edit.php?id=<?php echo $hwn['id_hewan']; ?>" class="btn-edit" title="Edit"><i class="fas fa-edit"></i></a>
-                                            <a href="hapus.php?id=<?php echo $hwn['id_hewan']; ?>" 
+                                            <a href="update.php?id=<?php echo $hwn['id_hewan']; ?>" class="btn-edit" title="Edit"><i class="fas fa-edit"></i></a>
+                                            <a href="/peternakan/peternakan/datahewan/hapus.php?id=<?php echo $hwn['id_hewan']; ?>" 
                                             class="btn-delete" 
                                             onclick="return confirm('Yakin hapus data ini?')">
                                                 <i class="fas fa-trash"></i>
