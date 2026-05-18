@@ -144,8 +144,9 @@ if ($result) {
                                 <td>
                                     <a href="edit.php?id=<?= $limter['id']; ?>" style="color: orange; margin-right: 15px;">
                                         <i class="fas fa-edit"></i>
-                                        <a href="hapus.php?id=<?php echo $hwn['id_hewan']; ?>" 
-                                        onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                        <a href="delete.php?id=<?= $limter['id']; ?>" 
+                                        style="color: #EF4444; text-decoration: none;"
+                                        onclick="return confirm('Yakin ingin menghapus data kandang <?= htmlspecialchars($limter['nama_kandang']); ?>?')">
                                         <i class="fas fa-trash"></i>
                                         </a>
                                 </td>

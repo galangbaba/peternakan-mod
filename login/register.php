@@ -5,12 +5,16 @@ $message = "";
 $status = "";
 
 if (isset($_POST['register'])) {
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
-    $email    = mysqli_real_escape_string($conn, $_POST['email']);
+    $username = $_POST['username'];
+    $email    = $_POST['email'];
     $password = $_POST['password'];
 
     // Cek apakah username/email sudah ada
-    $check_user = mysqli_query($conn, "SELECT * FROM users WHERE username='$username' OR email='$email'");
+    $check_query = "SELECT * FROM users WHERE username=? OR email=?";
+    $stmt_check = mysqli_prepare($conn, $check_query);
+    mysqli_stmt_bind_param($stmt_check, "ss", $username, $email);
+    mysqli_stmt_execute($stmt_check);
+    $check_user = mysqli_stmt_get_result($stmt_check);
     
     if (mysqli_num_rows($check_user) > 0) {
         $message = "Username atau Email sudah terdaftar!";
@@ -18,14 +22,17 @@ if (isset($_POST['register'])) {
     } else {
         // Enkripsi password sebelum simpan ke database
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $role_default = "user";
         
-        $query = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
+        $insert_query = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)";
+        $stmt_insert = mysqli_prepare($conn, $insert_query);
+        mysqli_stmt_bind_param($stmt_insert, "ssss", $username, $email, $hashed_password, $role_default);
         
-        if (mysqli_query($conn, $query)) {
+        if (mysqli_stmt_execute($stmt_insert)) {
             $message = "Pendaftaran berhasil! Silakan login.";
             $status = "success";
 
-            header("refresh:2;url=login.php");
+            header("refresh:2;url=index-user.php");
         } else {
             $message = "Terjadi kesalahan saat mendaftar.";
             $status = "error";
